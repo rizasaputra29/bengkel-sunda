@@ -1,1 +1,2 @@
-# bengkel-sunda
+# Bengkel-Sunda
+Bengkel Sunda adalah sebuah website untuk pelanggan dari Bengkel Sunda yang dapat digunakan untuk melihat dan membooking service apa saja yang ada di Bengkel Sunda. Website ini bertujuan digitalisasi dan memudahkan dari sisi pengguna untuk membuat booking terhadap Bengkel Sunda dengan cara yang lebih praktis.
