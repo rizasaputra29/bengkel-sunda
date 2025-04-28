@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { SERVICE_DATA_LIST } from "@/data/services";
-
+import { Link } from "react-router-dom";
 
 const ServicePage = () => {
   return (
@@ -82,9 +82,11 @@ const ServicePage = () => {
                   </div>
 
                   <div className="mt-auto">
+                    <Link to="/booking-service">
                     <button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-800">
                       Book Now
                     </button>
+                    </Link>
                   </div>
                 </div>
               </div>
