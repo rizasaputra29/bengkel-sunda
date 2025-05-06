@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
             {/* Company Info */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+              <h3 className="text-lg font-semibold bg-clip-text bg-gradient-to-r text-white">
                 Bengkel Sunda
               </h3>
               <p className="text-gray-400 text-sm max-w-md">
@@ -23,7 +23,7 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+              <h3 className="text-lg font-semibold text-white bg-clip-text bg-gradient-to-r ">
                 Quick Links
               </h3>
               <div className="grid grid-cols-2 gap-2">
@@ -31,7 +31,7 @@ const Footer = () => {
                   <a
                     key={link}
                     href={`#${link.toLowerCase()}`}
-                    className="text-gray-400 hover:text-cyan-400 transition-colors text-sm"
+                    className="text-gray-400 hover:text-gray-400 transition-colors text-sm"
                   >
                     {link}
                   </a>
@@ -41,16 +41,16 @@ const Footer = () => {
 
             {/* Contact Info */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+              <h3 className="text-lg font-semibold text-white bg-clip-text bg-gradient-to-r">
                 Contact Us
               </h3>
               <div className="space-y-2">
                 <a
                   href="tel:+1234567890"
-                  className="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition-colors group"
+                  className="flex items-center space-x-2 text-gray-400 hover:text-gray-400 transition-colors group"
                 >
                   <div className="relative">
-                    <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur group-hover:bg-cyan-400/30 transition-colors" />
+                    <div className="absolute inset-0 bg-gray-400/20 rounded-full blur group-hover:bg-gray-400/30 transition-colors" />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-4 w-4 relative"
@@ -65,10 +65,10 @@ const Footer = () => {
                 </a>
                 <a
                   href="mailto:contact@bikeservice.com"
-                  className="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition-colors group"
+                  className="flex items-center space-x-2 text-gray-400 hover:text-gray-400 transition-colors group"
                 >
                   <div className="relative">
-                    <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur group-hover:bg-cyan-400/30 transition-colors" />
+                    <div className="absolute inset-0 bg-gray-400/20 rounded-full blur group-hover:bg-gray-400/30 transition-colors" />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-4 w-4 relative"

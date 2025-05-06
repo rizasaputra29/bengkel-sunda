@@ -3,6 +3,7 @@ import { Menu, X, User, LogOut, LogIn, UserPlus, Home, Wrench, Info, Phone } fro
 import { Button } from './ui/button';
 import { cn } from '../lib/utils';
 import { useNavigate, Link } from 'react-router-dom';
+import Logo from '../assets/Logo.png';
 
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -64,42 +65,54 @@ const Header = () => {
     navigate("/login");
   };
 
+  const handleBookingClick = (e) => {
+    if (!isLoggedIn) {
+      e.preventDefault();
+      navigate('/login');
+    }
+  };
+
   return (
     <>
-      <header className="sticky top-0 z-50 backdrop-blur-sm border-b border-gray-800/50">
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-800/90" />
+      <header className="sticky top-0 z-40 bg-white border-b border-gray-200">
+        <div className="absolute inset-0 bg-white/90" />
         
-        <div className="relative max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+        <div className="relative max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-between h-20">
             {/* Left - Menu Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleSidebar}
-              className="relative rounded-full hover:bg-gray-800/50"
-            >
-              <Menu className="w-5 h-5 text-gray-300 hover:text-cyan-400" />
-            </Button>
+            <div className="w-[100px] flex justify-start">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleSidebar}
+                className="relative rounded-xl hover:bg-gray-50 w-10 h-10 flex items-center justify-center"
+              >
+                <Menu className="w-5 h-5 text-gray-800" />
+              </Button>
+            </div>
 
-            {/* Center - Logo & Nav */}
-            <div className="flex flex-col items-center flex-1">
+            {/* Center - Logo */}
+            <div className="flex-1 flex justify-center">
               <Link to="/" className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg blur-lg opacity-25 group-hover:opacity-40 transition-opacity" />
-                <h1 className="relative text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
-                  Bengkel Sunda
-                </h1>
+                <img
+                  src={Logo}
+                  alt="Logo"
+                  className="w-16 h-16 object-cover rounded-xl transform group-hover:scale-105 transition-transform duration-300"
+                />
               </Link>
             </div>
 
-            {/* Right - User Menu */}
-            <div className="flex items-center space-x-4">
-              {/* Book Now Button - Hidden on mobile */}
+            {/* Right - Actions */}
+            <div className="w-[100px] flex items-center justify-end space-x-4">
+              {/* Book Now Button */}
               <div className="hidden md:block">
-                <Link to="/booking-service" >
-                <Button className="relative overflow-hidden group bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold hover:from-cyan-600 hover:to-blue-600 transform hover:scale-[1.02] transition-all duration-200">
-                  <span className="relative z-10">Book Now</span>
-                  <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
-                </Button>
+                <Link 
+                  to={isLoggedIn ? "/booking-service" : "/login"}
+                  onClick={handleBookingClick}
+                >
+                  <Button className="bg-red-600 hover:bg-red-900 text-white font-medium px-6 rounded-full transition-all">
+                    Book Now
+                  </Button>
                 </Link>
               </div>
 
@@ -109,16 +122,15 @@ const Header = () => {
                   variant="ghost"
                   size="icon"
                   onClick={toggleUserDropdown}
-                  className="relative rounded-full hover:bg-gray-800/50"
+                  className="relative rounded-xl hover:bg-gray-50 w-10 h-10 flex items-center justify-center"
                 >
-                  <User className="w-5 h-5 text-gray-300 hover:text-cyan-400" />
+                  <User className="w-5 h-5 text-black" />
                 </Button>
-
                 {isUserDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 rounded-lg backdrop-blur-lg bg-gray-800/90 border border-gray-700 shadow-lg z-50 overflow-hidden animate-in fade-in slide-in-from-top-5 duration-200">
+                  <div className="absolute right-0 mt-2 w-56 rounded-xl bg-white border border-gray-200 shadow-lg z-50 overflow-hidden">
                     {isLoggedIn ? (
                       <button
-                        className="w-full text-left px-4 py-3 text-gray-300 hover:bg-gray-700/50 flex items-center space-x-2 transition-colors"
+                        className="w-full text-left px-4 py-3 text-gray-800 hover:bg-gray-50 flex items-center space-x-2 transition-colors"
                         onClick={handleLogout}
                       >
                         <LogOut className="w-4 h-4" />
@@ -128,7 +140,7 @@ const Header = () => {
                       <>
                         <Link
                           to="/login"
-                          className=" px-4 py-3 text-gray-300 hover:bg-gray-700/50 flex items-center space-x-2 transition-colors"
+                          className="block px-4 py-3 text-gray-800 hover:bg-gray-50 flex items-center space-x-2 transition-colors"
                           onClick={() => setIsUserDropdownOpen(false)}
                         >
                           <LogIn className="w-4 h-4" />
@@ -136,7 +148,7 @@ const Header = () => {
                         </Link>
                         <Link
                           to="/signup"
-                          className="px-4 py-3 text-gray-300 hover:bg-gray-700/50 flex items-center space-x-2 transition-colors"
+                          className="block px-4 py-3 text-gray-800 hover:bg-gray-50 flex items-center space-x-2 transition-colors"
                           onClick={() => setIsUserDropdownOpen(false)}
                         >
                           <UserPlus className="w-4 h-4" />
@@ -150,59 +162,74 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </header>
 
-      {/* Mobile Sidebar */}
-      {isSidebarOpen && (
-        <div className="fixed inset-0 z-50">
-          <div 
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={toggleSidebar}
-          />
-          
-          <div className={cn(
-            "fixed top-0 left-0 h-full w-72 bg-gray-900/95 border-r border-gray-800/50 backdrop-blur-md transform transition-transform duration-300 ease-out",
-            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          )}>
-            <div className="flex items-center justify-between p-4 border-b border-gray-800/50">
-              <span className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
-                Menu
-              </span>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleSidebar}
-                className="text-gray-300 hover:text-cyan-400"
-              >
-                <X className="w-5 h-5" />
-              </Button>
-            </div>
-
-            <nav className="p-4 space-y-2">
-              {navLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    className="flex items-center space-x-3 p-3 text-gray-300 hover:text-cyan-400 hover:bg-gray-800/50 rounded-lg transition-all"
-                    onClick={toggleSidebar}
-                  >
-                    <Icon className="w-5 h-5" />
-                    <span>{link.name}</span>
-                  </Link>
-                );
-              })}
-
-              <div className="pt-4">
-                <Button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold hover:from-cyan-600 hover:to-blue-600 transform hover:scale-[1.02] transition-all duration-200">
-                  Book Now
+        {/* Mobile Sidebar */}
+        {isSidebarOpen && (
+          <>
+            {/* Overlay */}
+            <div 
+              className="fixed inset-0 z-50 bg-black/50"
+              onClick={toggleSidebar}
+            />
+            
+            {/* Sidebar */}
+            <div 
+              className={cn(
+                "fixed top-0 left-0 bottom-0 z-50 w-[280px] bg-white shadow-xl",
+                "transform transition-transform duration-300 ease-in-out",
+                isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+              )}
+            >
+              {/* Sidebar Header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+                <span className="text-lg font-semibold text-gray-900">
+                  Menu
+                </span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={toggleSidebar}
+                  className="text-gray-800 hover:bg-gray-50 rounded-xl"
+                >
+                  <X className="w-5 h-5" />
                 </Button>
               </div>
-            </nav>
-          </div>
-        </div>
-      )}
+
+              {/* Sidebar Navigation */}
+              <nav className="p-6 space-y-2">
+                {navLinks.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <Link
+                      key={link.name}
+                      to={link.href}
+                      className="flex items-center space-x-3 px-4 py-3 text-gray-800 hover:bg-gray-100 rounded-xl transition-all"
+                      onClick={toggleSidebar}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span>{link.name}</span>
+                    </Link>
+                  );
+                })}
+
+                <div className="pt-4">
+                  <Link 
+                    to={isLoggedIn ? "/booking-service" : "/login"}
+                    onClick={(e) => {
+                      toggleSidebar();
+                      handleBookingClick(e);
+                    }}
+                  >
+                    <Button className="w-full bg-red-600 hover:bg-red-900 text-white font-medium rounded-full transition-all">
+                      Book Now
+                    </Button>
+                  </Link>
+                </div>
+              </nav>
+            </div>
+          </>
+        )}
+      </header>
     </>
   );
 };
