@@ -92,33 +92,56 @@ const BookingService = () => {
       .toFixed(2);
   };
 
-  const sendConfirmationEmail = async (bookingData) => {
+  const sendConfirmationEmail = async (userData) => {
     try {
-      await emailjs.send(
+      // Prepare services data
+      const servicesData = userData.userSelectedServices.map(service => ({
+        name: service.name,
+        price: service.price,
+        duration: service.duration
+      }));
+
+      // Format date
+      const formattedDate = new Date(userData.date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      // Prepare template parameters
+      const templateParams = {
+        // Customer Info
+        customer_name: userData.name,
+        customer_email: userData.email,
+        customer_phone: userData.phoneNumber,
+        vehicle_number: userData.vehicleNumber,
+        booking_date: formattedDate,
+        
+        // Booking Reference
+        booking_ref: `BS${Date.now().toString().slice(-6)}`,
+        
+        // Services (as string)
+        services_list: userData.userSelectedServices
+          .map(service => `${service.name} (${service.duration}) - ${service.price}`)
+          .join('\n'),
+          
+        // Total Amount
+        total_amount: `$${calculateTotal(userData.userSelectedServices)}`
+      };
+
+      const response = await emailjs.send(
         import.meta.env.VITE_SERVICE_NAME,
         import.meta.env.VITE_TEMPLATE_NAME,
-        {
-          name: bookingData.name,
-          email: bookingData.email,
-          phoneNumber: bookingData.phoneNumber,
-          vehicleNumber: bookingData.vehicleNumber,
-          date: new Date(bookingData.date).toLocaleDateString(),
-          services: bookingData.services.map(service => ({
-            name: service.name,
-            price: service.price,
-            duration: service.duration
-          })),
-          status: bookingData.status || 'pending',
-          totalPrice: bookingData.totalPrice,
-          _id: Date.now().toString().slice(-6) // Temporary booking reference
-        },
+        templateParams,
         {
           publicKey: import.meta.env.VITE_PUBLIC_KEY,
         }
       );
-      console.log("Booking confirmation email sent successfully");
+
+      console.log('Email sent successfully:', response);
     } catch (error) {
-      console.error("Failed to send confirmation email:", error);
+      console.error('Failed to send confirmation email:', error);
       throw error;
     }
   };
@@ -130,10 +153,24 @@ const BookingService = () => {
           id={service.name}
           checked={service.serviceCheckBox}
           onCheckedChange={(checked) => {
-            console.log("Service selected:", service.name, checked); // Debug
+            console.log("Service selected:", service.name, checked);
             onSelect(service.name, checked === true);
           }}
-          className="data-[state=checked]:bg-red-600 data-[state=checked]:border-red-600"
+          className="
+          h-5 
+          w-5 
+          border-2 
+          border-red-600
+          rounded
+          bg-white 
+          data-[state=checked]:bg-white
+          data-[state=checked]:border-red-600
+          focus:ring-red-600
+          focus:ring-2
+          focus:ring-offset-2
+          transition-colors
+          cursor-pointer
+        "
         />
         <div className="relative h-12 w-12 transform group-hover:scale-110 transition-transform duration-300">
           <img
@@ -295,12 +332,12 @@ const BookingService = () => {
               phoneNumber: userData.phoneNumber,
               vehicleNumber: userData.vehicleNumber,
               date: userData.date,
-              services: selectedServices.map(service => ({
+              services: selectedServices.map((service) => ({
                 name: service.name,
                 price: service.price,
-                duration: service.duration
+                duration: service.duration,
               })),
-              totalPrice
+              totalPrice,
             };
 
             // Di BookingForm, modifikasi bagian axios:
