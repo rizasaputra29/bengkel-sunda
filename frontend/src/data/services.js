@@ -7,7 +7,7 @@ export const SERVICE_DATA_LIST = [
       features: ["Oil Change", "Filter Cleaning", "Chain Lubrication", "Brake Adjustment", "Basic Tuning"],
       duration: "2-3 hours",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/settings.png",
-      price: "$50",
+      price: "Rp 150.000",
       recommended: true
     },
     {
@@ -17,7 +17,7 @@ export const SERVICE_DATA_LIST = [
       features: ["Custom Diagnostics", "Targeted Repairs", "Performance Tuning", "Parts Replacement", "Detailed Report"],
       duration: "3-4 hours",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/wrench-1.png",
-      price: "$80",
+      price: "Rp 200.000",
       recommended: false
     },
     {
@@ -27,7 +27,7 @@ export const SERVICE_DATA_LIST = [
       features: ["Performance Mods", "Custom Parts", "Paint Work", "Accessories Install", "Testing"],
       duration: "4-8 hours",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/bike-1.png",
-      price: "$120",
+      price: "Rp 500.000",
       recommended: false
     },
     {
@@ -37,7 +37,7 @@ export const SERVICE_DATA_LIST = [
       features: ["Battery Testing", "Terminal Cleaning", "Voltage Check", "Installation", "Warranty Support"],
       duration: "30-60 mins",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/battery.png",
-      price: "$30",
+      price: "Rp 200.000",
       recommended: false
     },
     {
@@ -47,7 +47,7 @@ export const SERVICE_DATA_LIST = [
       features: ["Engine Diagnostics", "Repair Service", "Performance Tuning", "Parts Replacement", "Testing"],
       duration: "4-8 hours",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/piston.png",
-      price: "$150",
+      price: "Rp 1.000.000",
       recommended: true
     },
     {
@@ -57,7 +57,7 @@ export const SERVICE_DATA_LIST = [
       features: ["Parts Sourcing", "Quality Check", "Installation", "Testing", "Warranty"],
       duration: "1-3 hours",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/disc-brake.png",
-      price: "$40",
+      price: "Rp 300.000",
       recommended: false
     },
     {
@@ -67,7 +67,7 @@ export const SERVICE_DATA_LIST = [
       features: ["Safety Check", "Fluid Levels", "Parts Inspection", "Minor Repairs", "Performance Test"],
       duration: "2-3 hours",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/exhaust.png",
-      price: "$70",
+      price: "Rp 100.000",
       recommended: false
     },
     {
@@ -77,7 +77,7 @@ export const SERVICE_DATA_LIST = [
       features: ["Foam Treatment", "Hand Wash", "Detailing", "Protective Coating", "Tire Shine"],
       duration: "1-2 hours",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/spray.png",
-      price: "$20",
+      price: "Rp 50.000",
       recommended: false
     },
     {
@@ -87,7 +87,7 @@ export const SERVICE_DATA_LIST = [
       features: ["Alignment", "Balancing", "Pressure Check", "Rotation", "Repairs"],
       duration: "1-2 hours",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/rim.png",
-      price: "$60",
+      price: "Rp 100.000",
       recommended: true
     },
     {
@@ -97,7 +97,7 @@ export const SERVICE_DATA_LIST = [
       features: ["ECU Tuning", "Fuel System Check", "Sensor Calibration", "Performance Testing", "Efficiency Report"],
       duration: "2-3 hours",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/speed.png",
-      price: "$100",
+      price: "Rp 200.000",
       recommended: false
     },
     {
@@ -107,7 +107,7 @@ export const SERVICE_DATA_LIST = [
       features: ["System Diagnosis", "Wiring Check", "Component Testing", "Repairs", "Safety Verification"],
       duration: "1-2 hours",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/spark-plug.png",
-      price: "$40",
+      price: "Rp 150.000",
       recommended: false
     },
     {
@@ -117,7 +117,7 @@ export const SERVICE_DATA_LIST = [
       features: ["Oil Replacement", "Filter Change", "Level Check", "Disposal Service", "Quality Inspection"],
       duration: "30-45 mins",
       imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/lubricant.png",
-      price: "$25",
+      price: "Rp 100.000",
       recommended: true
     }
   ];

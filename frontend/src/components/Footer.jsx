@@ -1,4 +1,13 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
+  const navigationLinks = [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" }
+  ];
+
   return (
     <footer className="relative mt-20">
       {/* Gradient background */}
@@ -23,18 +32,18 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white bg-clip-text bg-gradient-to-r ">
+              <h3 className="text-lg font-semibold text-white bg-clip-text bg-gradient-to-r">
                 Quick Links
               </h3>
               <div className="grid grid-cols-2 gap-2">
-                {["Home", "Services", "About", "Contact"].map((link) => (
-                  <a
-                    key={link}
-                    href={`#${link.toLowerCase()}`}
-                    className="text-gray-400 hover:text-gray-400 transition-colors text-sm"
+                {navigationLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className="text-gray-400 hover:text-white transition-colors text-sm"
                   >
-                    {link}
-                  </a>
+                    {link.name}
+                  </Link>
                 ))}
               </div>
             </div>

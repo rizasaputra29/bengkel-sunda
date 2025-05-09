@@ -123,9 +123,11 @@ const PromotionSection = () => {
               Get 15% off on all general services this month. Use code SPRING25
               when booking.
             </p>
+            <Link to="/booking-service">
             <Button className="bg-red-600 hover:bg-red-900 text-white font-semibold rounded-full transition-all transform hover:scale-[1.02]">
               Claim Offer
             </Button>
+            </Link>
           </div>
           <img
             src="https://promechanic.co.in/wp-content/uploads/2023/02/bike-1.png"

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import yourBookingContext from "../../context/yourBookingContext";
@@ -40,7 +40,15 @@ const BookingService = () => {
 
   const [userData, setUserData] = useState(INITIAL_FORM_STATE);
   const [bookingStatus, setBookingStatus] = useState("");
+  const [formError, setFormError] = useState(""); // Add this state for form validation errors
   const navigate = useNavigate();
+
+  // Reset form error when services are selected
+  useEffect(() => {
+    if (userData.userSelectedServices.length > 0) {
+      setFormError("");
+    }
+  }, [userData.userSelectedServices]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -60,7 +68,7 @@ const BookingService = () => {
       )
     );
 
-    // Update userData dengan cara yang benar
+    // Update userData with the correct approach
     const selectedService = serviceData.find((s) => s.name === serviceName);
 
     setUserData((prevData) => {
@@ -86,10 +94,20 @@ const BookingService = () => {
   const calculateTotal = (selectedServices) => {
     return selectedServices
       .reduce((sum, service) => {
-        const price = parseFloat(service.price.replace("$", ""));
+        // Remove 'Rp' and '.' from price string and convert to number
+        const price = parseFloat(
+          service.price
+            .replace('Rp', '')
+            .replace(/\./g, '')
+        );
         return sum + price;
       }, 0)
-      .toFixed(2);
+      .toLocaleString('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      });
   };
 
   const sendConfirmationEmail = async (userData) => {
@@ -127,7 +145,7 @@ const BookingService = () => {
           .join('\n'),
           
         // Total Amount
-        total_amount: `$${calculateTotal(userData.userSelectedServices)}`
+        total_amount: `${calculateTotal(userData.userSelectedServices)}`
       };
 
       const response = await emailjs.send(
@@ -199,17 +217,21 @@ const BookingService = () => {
         Price Summary
       </h3>
       <div className="space-y-2">
-        {selectedServices.map((service) => (
-          <div key={service.id} className="flex justify-between text-sm">
-            <span className="text-gray-600">{service.name}</span>
-            <span className="text-gray-800">{service.price}</span>
-          </div>
-        ))}
+        {selectedServices.length > 0 ? (
+          selectedServices.map((service) => (
+            <div key={service.id} className="flex justify-between text-sm">
+              <span className="text-gray-600">{service.name}</span>
+              <span className="text-gray-800">{service.price}</span>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-500 italic">No services selected</p>
+        )}
         <div className="pt-4 border-t border-gray-200">
           <div className="flex justify-between">
             <span className="text-lg font-semibold text-gray-800">Total</span>
             <span className="text-lg font-semibold text-red-600">
-              ${calculateTotal(selectedServices)}
+              {selectedServices.length > 0 ? calculateTotal(selectedServices) : "Rp0"}
             </span>
           </div>
         </div>
@@ -255,7 +277,7 @@ const BookingService = () => {
             Phone Number
           </Label>
           <Input
-            type="number"
+            type="tel" // Changed from "number" to "tel" for better UX
             id="phoneNumber"
             name="phoneNumber"
             placeholder="Type your phone number"
@@ -301,19 +323,42 @@ const BookingService = () => {
   const BookingForm = () => (
     <yourBookingContext.Consumer>
       {({ addBookingItem }) => {
+        const validateForm = () => {
+          // Check if any services are selected
+          const selectedServices = serviceData.filter(
+            (service) => service.serviceCheckBox
+          );
+          
+          if (selectedServices.length === 0) {
+            setFormError("Please choose at least one service");
+            return false;
+          }
+          
+          // Basic validation for required fields
+          if (!userData.name || !userData.email || !userData.phoneNumber || 
+              !userData.vehicleNumber || !userData.date) {
+            setFormError("Please fill in all required fields");
+            return false;
+          }
+          
+          return true;
+        };
+
         const handleSubmit = async (event) => {
           event.preventDefault();
+          
+          // Reset error states
+          setFormError("");
+          setBookingStatus("");
+          
+          // Validate form before submission
+          if (!validateForm()) {
+            return;
+          }
 
           const selectedServices = serviceData.filter(
             (service) => service.serviceCheckBox
           );
-          console.log("Selected services:", selectedServices); // Debug
-
-          if (!selectedServices || selectedServices.length === 0) {
-            console.log("No services selected"); // Debug
-            setBookingStatus("error");
-            return;
-          }
 
           try {
             const token = localStorage.getItem("token");
@@ -322,10 +367,10 @@ const BookingService = () => {
               return;
             }
 
-            // Hitung total
-            const totalPrice = parseFloat(calculateTotal(selectedServices));
+            // Calculate total
+            const totalPrice = parseFloat(calculateTotal(selectedServices).replace(/[^\d]/g, ""));
 
-            // Data untuk dikirim ke backend
+            // Data to send to backend
             const bookingData = {
               name: userData.name,
               email: userData.email,
@@ -340,7 +385,7 @@ const BookingService = () => {
               totalPrice,
             };
 
-            // Di BookingForm, modifikasi bagian axios:
+            // Send data to API
             const response = await axios.post(
               "http://localhost:5002/api/bookings",
               bookingData,
@@ -352,14 +397,10 @@ const BookingService = () => {
               }
             );
 
-            // Tambahkan console.log untuk debugging
-            console.log("Token:", token);
-            console.log("Booking data:", bookingData);
-
             // Update context
             addBookingItem(bookingData);
 
-            // Kirim email konfirmasi
+            // Send confirmation email
             await sendConfirmationEmail({
               ...userData,
               userSelectedServices: selectedServices,
@@ -374,10 +415,12 @@ const BookingService = () => {
               }))
             );
 
+            // Redirect to home page
             window.location = "/";
           } catch (error) {
             console.error("Booking failed:", error);
             setBookingStatus("error");
+            setFormError("An error occurred while processing your booking. Please try again.");
           }
         };
 
@@ -413,17 +456,15 @@ const BookingService = () => {
               />
             </div>
 
-            {bookingStatus && (
-              <div
-                className={`p-4 rounded-lg ${
-                  bookingStatus === "success"
-                    ? "bg-green-500/10 text-green-400 border border-green-500/20"
-                    : "bg-red-500/10 text-red-400 border border-red-500/20"
-                }`}
-              >
-                {bookingStatus === "success"
-                  ? "Booking Successful"
-                  : "*Please choose at least one service"}
+            {bookingStatus === "success" && (
+              <div className="p-4 rounded-lg bg-green-500/10 text-green-400 border border-green-500/20">
+                Booking Successful
+              </div>
+            )}
+            
+            {(formError || bookingStatus === "error") && (
+              <div className="p-4 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20">
+                {formError || "An error occurred. Please try again."}
               </div>
             )}
 
