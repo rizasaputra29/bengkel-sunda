@@ -8,21 +8,21 @@ const serviceDataList = [
   {
     id: 1,
     name: "General Service",
-    description: "Complete check-up and maintenance for your bike",
+    description: "Complete check-up and maintenance for your vehicle",
     imageUrl:
       "https://promechanic.co.in/wp-content/uploads/2023/02/settings.png",
   },
   {
     id: 2,
     name: "Custom Service",
-    description: "Tailored service options based on your bike's needs",
+    description: "Tailored service options based on your vehicle's needs",
     imageUrl:
       "https://promechanic.co.in/wp-content/uploads/2023/02/wrench-1.png",
   },
   {
     id: 3,
     name: "Bike Custom",
-    description: "Personalize your bike with custom parts and styling",
+    description: "Personalize your vehicle with custom parts and styling",
     imageUrl: "https://promechanic.co.in/wp-content/uploads/2023/02/bike-1.png",
   },
 ];
@@ -33,12 +33,12 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-red-50 to-red-100 rounded-3xl blur-3xl opacity-20" />
       <div className="relative bg-white rounded-3xl p-8 md:p-12 border border-gray-200 shadow-sm">
         <h1 className="text-4xl md:text-6xl font-extrabold text-black mb-6 flex justify-center">
-          Professional Bike Service & {" "}
+          Professional Service & {" "}
           <span className="text-red-600 ml-2">Repair</span>
         </h1>
         <p className="text-gray-800 text-lg md:text-xl mb-8 max-w-2xl mx-auto text-center">
           Expert care for your ride, every time. We provide top-quality service
-          to keep your bike in perfect condition.
+          to keep your vehicle in perfect condition.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/booking-service" className="w-full sm:w-auto">
@@ -88,12 +88,14 @@ const ServicesSection = ({ services }) => {
             <CardContent>
               <p className="text-gray-700 text-center">{service.description}</p>
               <div className="mt-6 text-center">
+                <Link to={`/services`}>
                 <Button
                   variant="outline"
                   className="rounded-full border-gray-300 hover:border-gray-400 hover:bg-gray-100 text-gray-800"
                 >
                   Learn More
                 </Button>
+                </Link>
               </div>
             </CardContent>
           </Card>
@@ -142,21 +144,21 @@ const TestimonialsSection = () => {
       id: 1,
       name: "King Anthony",
       comment:
-        "Best bike service in town! They fixed my mountain bike perfectly and gave great advice on maintenance.",
+        "Best vehicle service in town! They fixed my mountain vehicle perfectly and gave great advice on maintenance.",
       rating: 5,
     },
     {
       id: 2,
       name: "Lebron James",
       comment:
-        "Quick service and reasonable prices. My vintage road bike feels like new again.",
+        "Quick service and reasonable prices. My vintage road vehicle feels like new again.",
       rating: 5,
     },
     {
       id: 3,
       name: "Mulyono Solo",
       comment:
-        "Professional staff and excellent work on my electric bike. Highly recommended!",
+        "Professional staff and excellent work on my electric vehicle. Highly recommended!",
       rating: 4,
     },
   ];

@@ -61,7 +61,7 @@ const Footer = () => {
                       <path d="M3 5h2l3.6 7.59-1.35 2.44a11.05 11.05 0 005.4 5.4l2.44-1.35L19 19v2a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" />
                     </svg>
                   </div>
-                  <span className="text-sm">+1 234 567 890</span>
+                  <span className="text-sm">+62 811-2524-3210</span>
                 </a>
                 <a
                   href="mailto:contact@bikeservice.com"
@@ -79,7 +79,7 @@ const Footer = () => {
                       <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
-                  <span className="text-sm">contact@bikeservice.com</span>
+                  <span className="text-sm">contact@bengkelsunda.com</span>
                 </a>
               </div>
             </div>
@@ -90,7 +90,7 @@ const Footer = () => {
 
             {/* Copyright */}
             <p className="text-gray-500 text-sm">
-              © 2024 Bengkel Sunda. All rights reserved.
+              © 2025 Bengkel Sunda. All rights reserved.
             </p>
           </div>
         </div>

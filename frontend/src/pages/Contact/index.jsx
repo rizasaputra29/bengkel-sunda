@@ -23,7 +23,8 @@ const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
+    logo: Logo
   });
   const [status, setStatus] = useState({ type: '', message: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +39,7 @@ const ContactPage = () => {
         from_name: formData.name,
         from_email: formData.email,
         message: formData.message,
-        logo_url: Logo
+        logo_url: formData.logo
       };
 
       await emailjs.send(
@@ -144,7 +145,7 @@ const ContactPage = () => {
                     <Phone className="w-5 h-5 text-red-600 mt-1" />
                     <div>
                       <h3 className="font-semibold text-black">Phone</h3>
-                      <p className={commonStyles.text}>+1234567890</p>
+                      <p className={commonStyles.text}>+6281125243210</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">

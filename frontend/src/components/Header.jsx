@@ -140,7 +140,7 @@ const Header = () => {
                       <>
                         <Link
                           to="/login"
-                          className="block px-4 py-3 text-gray-800 hover:bg-gray-50 flex items-center space-x-2 transition-colors"
+                          className=" px-4 py-3 text-gray-800 hover:bg-gray-50 flex items-center space-x-2 transition-colors"
                           onClick={() => setIsUserDropdownOpen(false)}
                         >
                           <LogIn className="w-4 h-4" />
@@ -148,7 +148,7 @@ const Header = () => {
                         </Link>
                         <Link
                           to="/signup"
-                          className="block px-4 py-3 text-gray-800 hover:bg-gray-50 flex items-center space-x-2 transition-colors"
+                          className=" px-4 py-3 text-gray-800 hover:bg-gray-50 flex items-center space-x-2 transition-colors"
                           onClick={() => setIsUserDropdownOpen(false)}
                         >
                           <UserPlus className="w-4 h-4" />

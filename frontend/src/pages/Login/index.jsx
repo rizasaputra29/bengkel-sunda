@@ -3,10 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   FaEyeSlash,
   FaEye,
-  FaGoogle,
-  FaFacebook,
-  FaInstagram,
-  FaTwitter,
 } from "react-icons/fa";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
