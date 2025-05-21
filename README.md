@@ -1,6 +1,7 @@
 # Website Bengkel Sunda
 
-Sebuah website pemesanan layanan sepeda motor yang dibangun dengan **React** + **Vite** untuk frontend dan **Express** + **MongoDB** untuk backend. Website ini bertujuan digitalisasi dan memudahkan dari sisi pengguna untuk membuat booking terhadap Bengkel Sunda dengan cara yang lebih praktis.
+Sebuah platform pemesanan layanan sepeda motor yang dikembangkan menggunakan React dan Vite di sisi frontend, serta Express dan MongoDB di sisi backend. Website ini dirancang untuk mendigitalisasi proses pemesanan dan mempermudah pengguna dalam melakukan booking layanan di Bengkel Sunda secara lebih efisien dan praktis.
+
 
 
 ## Prasyarat
