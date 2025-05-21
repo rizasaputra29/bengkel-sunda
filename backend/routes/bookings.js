@@ -3,7 +3,7 @@ const router = require("express").Router();
 const Booking = require("../models/booking");
 const auth = require("../middleware/auth");
 
-// Create booking
+// Create Booking
 router.post("/", auth, async (req, res) => {
   try {
     console.log("Received booking data:", req.body);
@@ -25,7 +25,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-// Get user bookings
+// Get User Booking
 router.get("/user", auth, async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.user._id });
