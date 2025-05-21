@@ -1,3 +1,4 @@
+// backend/models/user.js
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
