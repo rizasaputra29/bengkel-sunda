@@ -7,7 +7,7 @@ const userRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
 const bookingRoutes = require("./routes/bookings");
 
-// database connection
+// koneksi database
 connection();
 
 // middlewares
