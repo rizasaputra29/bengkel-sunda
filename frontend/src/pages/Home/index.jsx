@@ -120,7 +120,7 @@ const PromotionSection = () => {
               Spring Service <span className="text-red-600">Special!</span>
             </h3>
             <p className="text-gray-800 text-lg mb-6">
-              Get 15% off on all general services this month. Use code SPRING25
+              Get 15% off on all services this month. Use code SPRING25
               when booking.
             </p>
             <Link to="/booking-service">
