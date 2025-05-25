@@ -43,6 +43,37 @@ const BookingService = () => {
   const [formError, setFormError] = useState(""); // Add this state for form validation errors
   const navigate = useNavigate();
 
+  // Add state for discount
+  const [discountCode, setDiscountCode] = useState("");
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [discountError, setDiscountError] = useState("");
+
+  const validDiscountCodes = {
+    SPRING25: 0.15, // 15% discount
+  };
+
+  const handleApplyDiscount = () => {
+    if (validDiscountCodes[discountCode]) {
+      setDiscountAmount(validDiscountCodes[discountCode]);
+      setDiscountError("");
+    } else {
+      setDiscountError("Invalid discount code. Please try again.");
+      setDiscountAmount(0);
+    }
+  };
+
+  const calculateTotalWithDiscount = (selectedServices) => {
+    const total = calculateTotal(selectedServices);
+    const totalWithoutCurrency = parseFloat(total.replace(/[^\d]/g, ""));
+    const discountedTotal = totalWithoutCurrency * (1 - discountAmount);
+    return discountedTotal.toLocaleString("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+  };
+
   // Reset form error when services are selected
   useEffect(() => {
     if (userData.userSelectedServices.length > 0) {
@@ -211,6 +242,38 @@ const BookingService = () => {
     </div>
   );
 
+  const DiscountSection = () => (
+    <div className={commonStyles.container}>
+      <h3 className="text-xl font-semibold text-gray-800 mb-4">
+        Apply Discount Code
+      </h3>
+      <div className="flex items-center gap-4">
+        <Input
+          type="text"
+          placeholder="Enter discount code"
+          value={discountCode}
+          onChange={(e) => setDiscountCode(e.target.value)}
+          className={commonStyles.input}
+        />
+        <Button
+          type="button"
+          onClick={handleApplyDiscount}
+          className={`${commonStyles.button} py-3 px-6`}
+        >
+          Apply
+        </Button>
+      </div>
+      {discountError && (
+        <p className="text-red-600 mt-2 text-sm">{discountError}</p>
+      )}
+      {discountAmount > 0 && (
+        <p className="text-green-600 mt-2 text-sm">
+          Discount applied: {discountAmount * 100}%
+        </p>
+      )}
+    </div>
+  );
+
   const PriceSummary = ({ selectedServices }) => (
     <div className={commonStyles.container}>
       <h3 className="text-xl font-semibold text-gray-800 mb-4">
@@ -231,7 +294,9 @@ const BookingService = () => {
           <div className="flex justify-between">
             <span className="text-lg font-semibold text-gray-800">Total</span>
             <span className="text-lg font-semibold text-red-600">
-              {selectedServices.length > 0 ? calculateTotal(selectedServices) : "Rp0"}
+              {selectedServices.length > 0
+                ? calculateTotalWithDiscount(selectedServices)
+                : "Rp0"}
             </span>
           </div>
         </div>
@@ -368,7 +433,7 @@ const BookingService = () => {
             }
 
             // Calculate total
-            const totalPrice = parseFloat(calculateTotal(selectedServices).replace(/[^\d]/g, ""));
+            const totalPrice = parseFloat(calculateTotalWithDiscount(selectedServices).replace(/[^\d]/g, ""));
 
             // Data to send to backend
             const bookingData = {
@@ -446,6 +511,10 @@ const BookingService = () => {
                   />
                 ))}
               </div>
+            </div>
+
+            <div className="space-y-6">
+              <DiscountSection />
             </div>
 
             <div className="space-y-6">
